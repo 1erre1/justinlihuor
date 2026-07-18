@@ -257,7 +257,7 @@ input {
 /* S C R O L L B A R */
 /* Width */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 7px;
 }
 
 /* Track (background) */
@@ -268,12 +268,8 @@ input {
 
 /* Thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
-    background: #296FF5;
+    background: #C5272A;
     border-radius: 10px;
-    border: 2px solid rgba(255,255,255,.4);
-    box-shadow:
-        inset 0 1px 1px rgba(255,255,255,.7),
-        0 2px 5px rgba(0,0,0,.2);
 }
 
 /* Hover */
