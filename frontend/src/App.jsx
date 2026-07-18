@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import logo from "./assets/popcorn.png";
-import background from "./assets/wiwi.jpg";
+// import background from "./assets/wiwi.jpg";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -26,30 +26,23 @@ function App() {
   }
 
   function completeMovie(movieId) {
-  const updatedMovies = movies.map((movie) => {
-    if (movie.id === movieId) {
-      return { ...movie, isCompleted: true };
-    }
+    const updatedMovies = movies.map((movie) => {
+      if (movie.id === movieId) {
+        return { ...movie, isCompleted: true };
+      }
 
-    return movie;
-  });
+      return movie;
+    });
 
-  setMovies(updatedMovies);
-}
+    setMovies(updatedMovies);
+  }
 
   function clearMovie() {
     setMovies([]);
   }
 
   function deleteMovie(movieId) {
-    const updatedMovies = movies.map((movie) => {
-      if (movie.id === movieId) {
-        return { ...movie, status: "Trash" };
-      }
-
-      return movie;
-    });
-
+    const updatedMovies = movies.filter(movie => movie.id !== movieId);
     setMovies(updatedMovies);
   }
 
@@ -61,19 +54,17 @@ function App() {
           <header className="header">
             <img src={logo} alt="Logo" className="logo" />
             <div className='header-text'>
-              <h1>Movie Tracker</h1>
-              <p>Catchy line</p>
+              <h1>BingeList</h1>
+              <p>Never lose track of a great film.</p>
             </div>
           </header>
 
           <aside className="sidebar">
             <h2>Movie Tracker</h2>
 
-            <h4>Dashboard</h4>
-
             <div className='total'>
-              <h4>Total movies</h4>
-              <p>{movies.length}</p>
+              <p>Total movies</p>
+              <h4>{movies.length}</h4>
             </div>
 
           </aside>
@@ -98,23 +89,25 @@ function App() {
               {movies.length === 0 ? (
                 <p className='empty'>No movies yet.</p>
               ) :
-                filteredMovies.map((movie) => (
+                movies.map((movie) => (
                   <article className='movie-card' key={movie.id}>
                     <div>
                       <h2>{movie.title}</h2>
-                      <p>Status: {movie.status}</p>
+                      <p>Status: {movie.isCompleted ? "Watched" : "Not yet"} </p>
                     </div>
 
-                    <button
-                      className={movie.status === "Watched" ? "completed-btn" : ""}
-                      onClick={() => completeMovie(movie.id)}
-                    >
-                      Status: {movie.isCompleted ? "Completed" : "Not yet"}
-                    </button>
+                    <div>
+                      <button
+                        className={movie.isCompleted ? "completed-btn" : ""}
+                        onClick={() => completeMovie(movie.id)}
+                      >
+                        {movie.isCompleted ? (<><ion-icon name="checkmark-outline"></ion-icon> Watched</> ) : ("Mark as completed")}
+                      </button>
 
-                    <button onClick={() => deleteMovie(movie.id)}>
-                      🗑
-                    </button>
+                      <button onClick={() => deleteMovie(movie.id)}>
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </div>
 
                   </article>
                 ))}
